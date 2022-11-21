@@ -28,16 +28,19 @@ export class Application {
 
     for (const Controller of controllers) {
       const controllerInstance = new Controller();
-      const prefix = controllerInstance.prefix;
       for (const route of controllerInstance.routes) {
-        this.#setupRoute(route, prefix);
+        this.#setupRoute(route({ ctx: "Hello World" }), controllerInstance);
       }
     }
   }
 
-  #setupRoute({ handler, path, method, middlewares, isPublic }, prefix) {
-    const fullPath = `${prefix}${path}`;
-    const handlers = [authJwtMiddleware, ...middlewares, handler];
+  #setupRoute({ handler, path, method, middlewares, isPublic }, controller) {
+    const fullPath = `${controller.prefix}${path}`;
+    const handlers = [
+      authJwtMiddleware,
+      ...middlewares,
+      handler.bind(controller),
+    ];
 
     if (isPublic) {
       handlers.shift();
