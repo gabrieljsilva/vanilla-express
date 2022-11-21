@@ -1,5 +1,5 @@
 # Vanilla Express
-This a project with only express to handle request;
+This is a project with only express to handle http requests;
 
 - Structured for scalability and readability;
 - Without database ORM;
