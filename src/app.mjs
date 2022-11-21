@@ -34,7 +34,8 @@ export class Application {
     }
   }
 
-  #setupRoute({ handler, path, method, middlewares, isPublic }, controller) {
+  #setupRoute(route, controller) {
+    const { handler, path, method, middlewares, isPublic } = route;
     const fullPath = `${controller.prefix}${path}`;
     const handlers = [
       authJwtMiddleware,
