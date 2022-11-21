@@ -12,7 +12,7 @@ export class AuthController extends Controller {
   }
 
   get routes() {
-    return [this.#login()];
+    return [this.#login];
   }
 
   #login() {
@@ -21,7 +21,7 @@ export class AuthController extends Controller {
       method: httpMethods.POST,
       isPublic: true,
       middlewares: [createBodyValidationMiddleware(loginValidationSchema)],
-      handler: async (request, response, next) => {
+      async handler(request, response, next) {
         try {
           const { email, password } = request.body;
           const token = await this.#authService.login(email, password);

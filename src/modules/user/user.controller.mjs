@@ -10,12 +10,12 @@ export class UserController extends Controller {
   }
 
   get routes() {
-    return [this.#getUsers()];
+    return [this.#getUsers];
   }
 
   #getUsers() {
     return new Route({
-      handler: async (req, res, next) => {
+      async handler(req, res, next) {
         try {
           const users = await this.#service.findUsers();
           return res.json(users);
